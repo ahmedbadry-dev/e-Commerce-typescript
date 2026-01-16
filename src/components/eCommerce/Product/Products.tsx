@@ -7,7 +7,7 @@ const Product = () => {
         <div className={product}>
             <div className={productImg}>
                 <img
-                    src="https://eg.hm.com/assets/styles/HNM/14482498/6103a8463876770c30cdba3535b7be1f333315fe/2/image-thumb__3464789__product_listing/cb91f8f128ac2125e0ec3a008a2e8d2497d15434.jpg"
+                    src="https://cdn-eu.dynamicyield.com/api/9876644/images/244c68ad42d8b__hp-w12-22032022-h_m-women_shirts-blouses.jpg"
                     alt=""
                 />
             </div>

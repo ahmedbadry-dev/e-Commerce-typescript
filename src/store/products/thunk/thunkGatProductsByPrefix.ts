@@ -7,11 +7,11 @@ type TResponse = TProduct
 export const getProductsByPrefix = createAsyncThunk(
   'products/getAll',
   async (prefix: string, { rejectWithValue }) => {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('done')
-      }, 2000)
-    })
+    // await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve('done')
+    //   }, 2000)
+    // })
 
     try {
       const response = await axios.get<TResponse[]>(

@@ -7,11 +7,11 @@ type TResponse = TCategory
 export const getCategories = createAsyncThunk(
   'categories/getAll',
   async (_, { rejectWithValue }) => {
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('done')
-      }, 2000)
-    })
+    // await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve('done')
+    //   }, 2000)
+    // })
     try {
       const response = await axios.get<TResponse[]>(
         'http://localhost:5005/categories'

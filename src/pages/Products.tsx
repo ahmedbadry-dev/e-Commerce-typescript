@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { useEffect } from "react"
 import { getProductsByPrefix } from '@store/products/thunk/thunkGatProductsByPrefix'
 import { useParams } from "react-router-dom"
+import { productCleanUp } from "@store/products/ProductsSlice"
 
 const Products = () => {
     const { error, loading, records } = useAppSelector(s => s.products)
@@ -12,6 +13,9 @@ const Products = () => {
 
     useEffect(() => {
         dispatch(getProductsByPrefix(params.prefix as string))
+        return () => {
+            dispatch(productCleanUp())
+        }
     }, [dispatch, params])
 
     const productsList = records.map(record => (

@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import styles from "./styles.module.css";
-const { category, categoryImg, categoryTitle } = styles;
+const { categoryImg, categoryTitle } = styles;
 import type { TCategory } from '@customTypes/categories.type'
 const Category = ({ img, prefix, title }: TCategory) => {
     return (
         <Link to={`products/${prefix}`}>
-            <div className={category}>
+            <div>
                 <div className={categoryImg}>
                     <img
                         src={img}

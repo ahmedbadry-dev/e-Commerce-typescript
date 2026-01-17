@@ -1,11 +1,17 @@
 import { createRoot } from 'react-dom/client'
 import AppRouter from '@routes/AppRouter';
 
-//style
+// redux
+import { store } from '@store/index'
+import { Provider } from 'react-redux';
+
+// style
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 createRoot(document.getElementById('root')!)
   .render(
-    <AppRouter />
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
   )

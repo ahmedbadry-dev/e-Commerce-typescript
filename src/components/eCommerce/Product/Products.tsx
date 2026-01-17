@@ -1,18 +1,23 @@
+import type { TProduct } from '@customTypes/product.type'
 import { Button } from "react-bootstrap";
 import styles from "./styles.module.css";
+
+
 const { product, productImg } = styles;
 
-const Product = () => {
+const Product = ({ title, price, img }: TProduct) => {
+
+
     return (
         <div className={product}>
             <div className={productImg}>
                 <img
-                    src="https://cdn-eu.dynamicyield.com/api/9876644/images/244c68ad42d8b__hp-w12-22032022-h_m-women_shirts-blouses.jpg"
-                    alt=""
+                    src={img}
+                    alt={title}
                 />
             </div>
-            <h2>Title</h2>
-            <h3>10 EGP</h3>
+            <h2>{title}</h2>
+            <h3>{price}</h3>
             <Button variant="info" style={{ color: "white" }}>
                 Add to cart
             </Button>

@@ -20,7 +20,6 @@ const categoriesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(getCategories.fulfilled, (state, action) => {
-        state.loading = 'succeeded'
         state.records = action.payload
       })
       .addMatcher(isRejectedWithValue, (state, action) => {

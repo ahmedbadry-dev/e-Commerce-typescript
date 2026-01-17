@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { useEffect } from "react"
 import { getProductsByPrefix } from '@store/products/thunk/thunkGatProductsByPrefix'
 import { useParams } from "react-router-dom"
-import { productCleanUp } from "@store/products/ProductsSlice"
+import { productCleanUp } from "@store/products/productsSlice"
 
 const Products = () => {
     const { error, loading, records } = useAppSelector(s => s.products)

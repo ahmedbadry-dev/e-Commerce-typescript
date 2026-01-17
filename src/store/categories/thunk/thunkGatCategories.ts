@@ -7,7 +7,7 @@ type TResponse = TCategory
 export const getCategories = createAsyncThunk(
   'categories/getAll',
   async (_, { rejectWithValue }) => {
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
       setTimeout(() => {
         resolve('done')
       }, 2000)

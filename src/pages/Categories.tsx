@@ -9,42 +9,23 @@ const Categories = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getCategories())
-        console.log(error);
-        console.log(records);
-        console.log(loading);
-    }, [dispatch])
+        if (loading === 'idle') {
+            dispatch(getCategories())
+        }
+    }, [dispatch, loading])
+
+    const categoriesList = records.map(record => (
+        <Col xs={6} md={3} key={record.id} className="d-flex justify-content-center mb-5 mt-2">
+            <Category {...record} />
+        </Col>
+    ))
+
     return (
         <Container>
             <Row>
-                <Col xs={6} md={3} lg className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-                <Col xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
-                    <Category />
-                </Col>
-
+                {loading === 'pending' && <p>Loading...</p>}
+                {loading === 'failed' && <p>{error}</p>}
+                {records.length > 0 && loading === 'succeeded' && categoriesList}
             </Row>
         </Container>
     )

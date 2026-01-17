@@ -20,23 +20,24 @@ const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<MainLayout />} errorElement={<Error />}>
             <Route index element={<Home />} />
-            <Route path='categories' element={<Categories />} />
-            <Route
-                path='products/:prefix'
-                element={<Products />}
-                loader={({ params }) => {
-                    if (
-                        typeof params.prefix !== "string" ||
-                        !/^[a-z]+$/i.test(params.prefix)
-                    ) {
-                        throw new Response("Bad Request", {
-                            statusText: "Category not found",
-                            status: 400,
-                        })
-                    }
-                    return true  // if there is no return true the user can not access page for correct params
-                }}
-            />
+            <Route path='categories' element={<Categories />} >
+                <Route
+                    path='products/:prefix'
+                    element={<Products />}
+                    loader={({ params }) => {
+                        if (
+                            typeof params.prefix !== "string" ||
+                            !/^[a-z]+$/i.test(params.prefix)
+                        ) {
+                            throw new Response("Bad Request", {
+                                statusText: "Category not found",
+                                status: 400,
+                            })
+                        }
+                        return true  // if there is no return true the user can not access page for correct params
+                    }}
+                />
+            </Route>
             <Route path='about-us' element={<AboutUs />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />

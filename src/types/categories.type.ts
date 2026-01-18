@@ -1,4 +1,4 @@
-import type { Loading } from '@customTypes/shared.type'
+import type { TLoading } from '@customTypes/shared.type'
 
 type TCategory = {
   id: number
@@ -9,7 +9,7 @@ type TCategory = {
 
 interface ICategoriesState {
   records: TCategory[]
-  loading: Loading
+  loading: TLoading
   error: string | null
 }
 

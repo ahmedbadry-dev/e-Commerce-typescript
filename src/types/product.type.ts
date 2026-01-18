@@ -1,4 +1,4 @@
-import type { Loading } from '@customTypes/shared.type'
+import type { TLoading } from '@customTypes/shared.type'
 
 type TProduct = {
   id: number
@@ -10,7 +10,7 @@ type TProduct = {
 
 interface IProductsState {
   records: TProduct[]
-  loading: Loading
+  loading: TLoading
   error: string | null
 }
 

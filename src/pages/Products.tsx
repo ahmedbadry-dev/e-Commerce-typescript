@@ -1,11 +1,12 @@
-import { Container, Row, Col } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import { Product } from "@components/eCommerce"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { useEffect } from "react"
 import { getProductsByPrefix } from '@store/products/thunk/thunkGatProductsByPrefix'
 import { useParams } from "react-router-dom"
 import { productCleanUp } from "@store/products/productsSlice"
-import Loading from "@components/feedback/Loading/Loading"
+import { Loading } from "@components/feedback"
+import { GridList } from "@components/common"
 
 const Products = () => {
     const { error, loading, records } = useAppSelector(s => s.products)
@@ -19,19 +20,13 @@ const Products = () => {
         }
     }, [dispatch, params])
 
-    const productsList = records.map(record => (
-        <Col xs={6} md={3} key={record.id} className="d-flex justify-content-center mb-5 mt-2">
-            <Product {...record} />
-        </Col>
-    ))
+
 
 
     return (
         <Container>
             <Loading status={loading} error={error}>
-                <Row>
-                    {loading === 'succeeded' && records.length > 0 && productsList}
-                </Row>
+                <GridList records={records} renderRecord={(record) => <Product {...record} />} />
             </Loading>
         </Container>
     )

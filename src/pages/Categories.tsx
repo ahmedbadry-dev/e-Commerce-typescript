@@ -11,13 +11,14 @@ const Categories = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
+        if (records.length > 0) return
         // this condition to prevent firing getCategories dispatch ever re-render 
         // why cose categories dose not change frequently it stay the same for long time 
         // if we have recorded so we do not need to fire dispatch 
-        if (!records.length) {
+        if (loading === 'idle') {
             dispatch(getCategories())
         }
-    }, [dispatch, loading])
+    }, [dispatch, loading, records.length])
 
 
     return (

@@ -1,3 +1,3 @@
-type Loading = 'idle' | 'pending' | 'succeeded' | 'failed'
+type TLoading = 'idle' | 'pending' | 'succeeded' | 'failed'
 
-export type { Loading }
+export type { TLoading }

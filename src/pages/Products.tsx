@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { getProductsByPrefix } from '@store/products/thunk/thunkGatProductsByPrefix'
 import { useParams } from "react-router-dom"
 import { productCleanUp } from "@store/products/productsSlice"
+import Loading from "@components/feedback/Loading/Loading"
 
 const Products = () => {
     const { error, loading, records } = useAppSelector(s => s.products)
@@ -27,11 +28,11 @@ const Products = () => {
 
     return (
         <Container>
-            <Row>
-                {loading === 'failed' && <p>{error}</p>}
-                {loading === 'pending' && <p>Loading...</p>}
-                {loading === 'succeeded' && records.length > 0 && productsList}
-            </Row>
+            <Loading status={loading} error={error}>
+                <Row>
+                    {loading === 'succeeded' && records.length > 0 && productsList}
+                </Row>
+            </Loading>
         </Container>
     )
 }

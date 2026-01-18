@@ -3,6 +3,7 @@ import { Category } from "@components/eCommerce"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { useEffect } from "react"
 import { getCategories } from "@store/categories/thunk/thunkGatCategories"
+import Loading from "@components/feedback/Loading/Loading"
 const Categories = () => {
     const { error, loading, records } = useAppSelector(state => state.categories)
 
@@ -25,11 +26,11 @@ const Categories = () => {
 
     return (
         <Container>
-            <Row>
-                {loading === 'pending' && <p>Loading...</p>}
-                {loading === 'failed' && <p>{error}</p>}
-                {records.length > 0 && loading === 'succeeded' && categoriesList}
-            </Row>
+            <Loading status={loading} error={error}>
+                <Row>
+                    {records.length > 0 && loading === 'succeeded' && categoriesList}
+                </Row>
+            </Loading>
         </Container>
     )
 }

@@ -6,6 +6,7 @@ type TProduct = {
   price: string
   cat_prefix: string
   img: string
+  quantity?: number
 }
 
 interface IProductsState {

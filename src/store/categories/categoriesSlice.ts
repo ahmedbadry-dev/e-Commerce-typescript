@@ -1,9 +1,4 @@
-import {
-  createSlice,
-  isFulfilled,
-  isPending,
-  isRejectedWithValue,
-} from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import type { ICategoriesState } from '@customTypes/categories.type'
 import { getCategories } from './thunk/thunkGatCategories'
 
@@ -19,22 +14,19 @@ const categoriesSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getCategories.fulfilled, (state, action) => {
-        state.records = action.payload
-      })
-      .addMatcher(isRejectedWithValue, (state, action) => {
-        state.loading = 'failed'
-        if (action.payload && typeof action.payload === 'string') {
-          state.error = action.payload
-        }
-        // state.error = action.payload as string
-      })
-      .addMatcher(isFulfilled, (state) => {
-        state.loading = 'succeeded'
-      })
-      .addMatcher(isPending, (state) => {
+      .addCase(getCategories.pending, (state) => {
         state.loading = 'pending'
         state.error = null
+      })
+      .addCase(getCategories.fulfilled, (state, action) => {
+        state.loading = 'succeeded'
+        state.records = action.payload
+      })
+      .addCase(getCategories.rejected, (state, action) => {
+        state.loading = 'failed'
+        if (typeof action.payload === 'string') {
+          state.error = action.payload
+        }
       })
   },
 })

@@ -1,9 +1,10 @@
-import { Container, Row, Col } from "react-bootstrap"
+import { Container } from "react-bootstrap"
 import { Category } from "@components/eCommerce"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { useEffect } from "react"
 import { getCategories } from "@store/categories/thunk/thunkGatCategories"
-import Loading from "@components/feedback/Loading/Loading"
+import { Loading } from "@components/feedback"
+import { GridList } from "@components/common"
 const Categories = () => {
     const { error, loading, records } = useAppSelector(state => state.categories)
 
@@ -18,18 +19,11 @@ const Categories = () => {
         }
     }, [dispatch, loading])
 
-    const categoriesList = records.map(record => (
-        <Col xs={6} md={3} key={record.id} className="d-flex justify-content-center mb-5 mt-2">
-            <Category {...record} />
-        </Col>
-    ))
 
     return (
         <Container>
             <Loading status={loading} error={error}>
-                <Row>
-                    {records.length > 0 && loading === 'succeeded' && categoriesList}
-                </Row>
+                <GridList records={records} renderRecord={(record) => <Category {...record} />} />
             </Loading>
         </Container>
     )

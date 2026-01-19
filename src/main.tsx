@@ -6,8 +6,13 @@ import { store, persistor } from '@store/index'
 import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 
+// axios
+import './services/axios-global.js'
+
 // style
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 
 createRoot(document.getElementById('root')!)

@@ -1,5 +1,6 @@
+import { memo, useEffect, useState } from 'react';
 import type { TProduct } from '@customTypes/product.type'
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { useAppDispatch } from '@store/hooks';
 import { addToCart } from '@store/cart/cartSlice';
 import styles from "./styles.module.css";
@@ -7,11 +8,26 @@ import styles from "./styles.module.css";
 
 const { product, productImg } = styles;
 
-const Product = ({ id, title, price, img }: TProduct) => {
+const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
     const dispatch = useAppDispatch()
+    const [isBtnClicked, setIsBtnClicked] = useState(false)
+
+    const availableQuantity = max - (quantity ?? 0)
+    const quantityReachedToMax = availableQuantity <= 0 ? true : false
+
+    useEffect(() => {
+        if (!isBtnClicked) return
+
+        const handler = setTimeout(() => {
+            setIsBtnClicked(false)
+        }, 300)
+
+        return () => clearTimeout(handler)
+    }, [isBtnClicked])
 
     const handleAddCart = () => {
         dispatch(addToCart(id))
+        setIsBtnClicked(true)
     }
     return (
         <div className={product}>
@@ -22,12 +38,24 @@ const Product = ({ id, title, price, img }: TProduct) => {
                 />
             </div>
             <h2 title={title}>{title}</h2>
-            <h3>{price}</h3>
-            <Button variant="info" style={{ color: "white" }} onClick={handleAddCart}>
-                Add to cart
+            <h3>{price.toFixed(2)}</h3>
+            <p>
+                {
+                    quantityReachedToMax
+                        ? `You reached to the limit`
+                        : `You can add ${availableQuantity}`
+                }
+            </p>
+            <Button
+                variant="info"
+                style={{ color: "white" }}
+                onClick={handleAddCart}
+                disabled={isBtnClicked || quantityReachedToMax}
+            >
+                {isBtnClicked ? <><Spinner animation='border' size='sm' /> Loading...</> : 'Add to cart'}
             </Button>
         </div>
     );
-};
+});
 
 export default Product;

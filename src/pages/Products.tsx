@@ -6,12 +6,20 @@ import { getProductsByPrefix } from '@store/products/thunk/thunkGatProductsByPre
 import { useParams } from "react-router-dom"
 import { productCleanUp } from "@store/products/productsSlice"
 import { Loading } from "@components/feedback"
-import { GridList } from "@components/common"
+import { GridList, Heading } from "@components/common"
 
 const Products = () => {
+    const cardItems = useAppSelector(state => state.cart.items)
     const { error, loading, records } = useAppSelector(s => s.products)
     const params = useParams()
     const dispatch = useAppDispatch()
+
+    const productFullInfo = records.map(record => (
+        {
+            ...record,
+            quantity: cardItems[record.id] || 0
+        }
+    ))
 
     useEffect(() => {
         dispatch(getProductsByPrefix(params.prefix as string))
@@ -24,11 +32,14 @@ const Products = () => {
 
 
     return (
-        <Container>
-            <Loading status={loading} error={error}>
-                <GridList records={records} renderRecord={(record) => <Product {...record} />} />
-            </Loading>
-        </Container>
+        <>
+            <Heading><span className="text-capitalize">{(params.prefix)}</span> Products</Heading>
+            <Container>
+                <Loading status={loading} error={error}>
+                    <GridList records={productFullInfo} renderRecord={(record) => <Product {...record} />} />
+                </Loading>
+            </Container>
+        </>
     )
 }
 

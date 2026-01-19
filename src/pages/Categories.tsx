@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "@store/hooks"
 import { useEffect } from "react"
 import { getCategories } from "@store/categories/thunk/thunkGatCategories"
 import { Loading } from "@components/feedback"
-import { GridList } from "@components/common"
+import { GridList, Heading } from "@components/common"
 const Categories = () => {
     const { error, loading, records } = useAppSelector(state => state.categories)
 
@@ -22,11 +22,14 @@ const Categories = () => {
 
 
     return (
-        <Container>
-            <Loading status={loading} error={error}>
-                <GridList records={records} renderRecord={(record) => <Category {...record} />} />
-            </Loading>
-        </Container>
+        <>
+            <Heading>Categories</Heading>
+            <Container>
+                <Loading status={loading} error={error}>
+                    <GridList records={records} renderRecord={(record) => <Category {...record} />} />
+                </Loading>
+            </Container>
+        </>
     )
 }
 

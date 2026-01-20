@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { HeaderBasket } from "@components/eCommerce";
+import { HeaderBasket, HeaderWishlist } from "@components/eCommerce";
 import {
     Badge,
     Navbar,
@@ -10,7 +10,7 @@ import {
 
 import styles from "./styles.module.css";
 
-const { headerContainer, headerLogo } = styles
+const { headerContainer, headerLogo, headerLeftBar } = styles
 
 function Header() {
     return (
@@ -19,8 +19,10 @@ function Header() {
                 <h1 className={headerLogo}>
                     <span>our</span> <Badge bg="info">Ecom</Badge>
                 </h1>
-
-                <HeaderBasket />
+                <div className={headerLeftBar}>
+                    <HeaderWishlist />
+                    <HeaderBasket />
+                </div>
             </div>
 
             <Navbar

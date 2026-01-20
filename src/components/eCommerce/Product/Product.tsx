@@ -3,10 +3,12 @@ import type { TProduct } from '@customTypes/product.type'
 import { Button, Spinner } from "react-bootstrap";
 import { useAppDispatch } from '@store/hooks';
 import { addToCart } from '@store/cart/cartSlice';
+import Like from '@assets/svg/like.svg?react'
+// import LikeFill from '@assets/svg/like.svg?react'
 import styles from "./styles.module.css";
 
 
-const { product, productImg } = styles;
+const { product, productImg, wishlistBtn } = styles;
 
 const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
     const dispatch = useAppDispatch()
@@ -14,7 +16,7 @@ const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
 
     const availableQuantity = max - (quantity ?? 0)
     const quantityReachedToMax = availableQuantity <= 0 ? true : false
-    console.log('render');
+
 
     useEffect(() => {
         if (!isBtnClicked) return
@@ -32,6 +34,9 @@ const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
     }
     return (
         <div className={product}>
+            <div className={wishlistBtn}>
+                <Like />
+            </div>
             <div className={productImg}>
                 <img
                     src={img}

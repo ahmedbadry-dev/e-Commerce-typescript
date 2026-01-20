@@ -1,4 +1,5 @@
 import HeaderBasket from './HeaderBasket/HeaderBasket'
+import HeaderWishlist from './HeaderWishlist/HeaderWishlist'
 import Product from './Product/Product'
 import Category from './Category/Category'
 import Cart from '@pages/Cart'
@@ -12,6 +13,7 @@ export {
   Category,
   Cart,
   CartSubtotalPrice,
+  HeaderWishlist,
   CartItemsList,
   CartItem,
 }

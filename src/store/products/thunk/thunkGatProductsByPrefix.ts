@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import type { TProduct } from '@customTypes/product.type'
 
-type TResponse = TProduct
+type TResponse = TProduct[]
 
 export const getProductsByPrefix = createAsyncThunk(
   'products/getAll',
@@ -14,7 +14,7 @@ export const getProductsByPrefix = createAsyncThunk(
     // })
 
     try {
-      const response = await axios.get<TResponse[]>(
+      const response = await axios.get<TResponse>(
         `/products?cat_prefix=${prefix}`
       )
       return response.data

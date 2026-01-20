@@ -28,7 +28,7 @@ const productsSlice = createSlice({
       })
       .addCase(getProductsByPrefix.rejected, (state, action) => {
         state.loading = 'failed'
-        if (typeof action.payload === 'string') {
+        if (action.payload && typeof action.payload === 'string') {
           state.error = action.payload
         }
       })

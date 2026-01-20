@@ -14,6 +14,7 @@ const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
 
     const availableQuantity = max - (quantity ?? 0)
     const quantityReachedToMax = availableQuantity <= 0 ? true : false
+    console.log('render');
 
     useEffect(() => {
         if (!isBtnClicked) return

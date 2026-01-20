@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit'
 import type { RootState } from '../../index'
 
-const getTotalCartQuantitySelector = createSelector(
+const getCartTotalQuantitySelector = createSelector(
   (state: RootState) => state.cart.items, // return items
   (items) => {
     const totalQuantity = Object.values(items).reduce((acc, currentValue) => {
@@ -11,4 +11,4 @@ const getTotalCartQuantitySelector = createSelector(
   }
 )
 
-export { getTotalCartQuantitySelector }
+export { getCartTotalQuantitySelector }

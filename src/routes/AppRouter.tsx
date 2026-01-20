@@ -9,7 +9,7 @@ import AboutUs from '@pages/AboutUs';
 import Login from '@pages/Login';
 import Register from '@pages/Register';
 import Error from '@pages/Error/Error';
-
+import Cart from '@pages/Cart';
 
 // layouts
 import { MainLayout } from '@layouts/index'
@@ -38,6 +38,7 @@ const router = createBrowserRouter(
                 }}
             />
             <Route path='about-us' element={<AboutUs />} />
+            <Route path='/cart' element={<Cart />} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
         </Route>

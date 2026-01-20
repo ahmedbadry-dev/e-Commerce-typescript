@@ -1,19 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { TProduct } from "@customTypes/product.type";
 import { getTotalCartQuantitySelector } from './selectors'
-
+import getProductsByItems from "./thunk/thunkGetProductsByItems";
+import type { TLoading } from "@customTypes/shared.type";
 
 
 
 interface ICartState {
-    items: { [key: number]: number },
-    productFullInfo: TProduct[]
+    items: { [key: string]: number },
+    productsFullInfo: TProduct[]
+    loading: TLoading
+    error: null | string
 }
 
 
 const initialState: ICartState = {
     items: {},
-    productFullInfo: []
+    productsFullInfo: [],
+    loading: 'idle',
+    error: null
 }
 
 const cartSlice = createSlice({
@@ -27,14 +32,41 @@ const cartSlice = createSlice({
             } else {
                 state.items[id] = 1
             }
+        },
+        cartItemChangeQuantity: (state, action) => {
+            const { id, quantity } = action.payload
+            state.items[id] = quantity
+        },
+        removeCartItem: (state, action) => {
+            delete state.items[action.payload.id]
+            state.productsFullInfo = state.productsFullInfo.filter(product => (
+                product.id !== action.payload.id
+            ))
         }
+    },
+    extraReducers: (builder) => {
+        builder
+            .addCase(getProductsByItems.pending, (state) => {
+                state.loading = 'pending'
+                state.error = null
+            })
+            .addCase(getProductsByItems.fulfilled, (state, action) => {
+                state.loading = 'succeeded'
+                state.productsFullInfo = action.payload
+            })
+            .addCase(getProductsByItems.rejected, (state, action) => {
+                state.loading = 'failed'
+                if (action.payload && typeof action.payload === "string") {
+                    state.error = action.payload
+                }
+            })
     }
 })
 
 
 
 
-export { getTotalCartQuantitySelector }
-export const { addToCart } = cartSlice.actions
+export { getTotalCartQuantitySelector, getProductsByItems }
+export const { addToCart, cartItemChangeQuantity, removeCartItem } = cartSlice.actions
 export default cartSlice.reducer
 

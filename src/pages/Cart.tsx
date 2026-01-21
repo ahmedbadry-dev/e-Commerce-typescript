@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react"
 import { Heading } from "@components/common"
 import { CartItemsList, CartSubtotalPrice } from "@components/eCommerce"
 import { useAppDispatch, useAppSelector } from "@store/hooks"
-import { cartItemChangeQuantity, getProductsByItems, removeCartItem } from "@store/cart/cartSlice"
+import { cartItemChangeQuantity, getProductsByItems, removeCartItem, cartItemsFullInfoCleanUp } from "@store/cart/cartSlice"
 import { Loading } from "@components/feedback"
 
 const Cart = () => {
@@ -12,6 +12,9 @@ const Cart = () => {
 
     useEffect(() => {
         dispatch(getProductsByItems())
+        return () => {
+            dispatch(cartItemsFullInfoCleanUp())
+        }
     }, [])
 
     const products = productsFullInfo.map((el => (

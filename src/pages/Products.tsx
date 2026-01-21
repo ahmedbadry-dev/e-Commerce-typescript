@@ -11,13 +11,16 @@ import { GridList, Heading } from "@components/common"
 const Products = () => {
     const cardItems = useAppSelector(state => state.cart.items)
     const { error, loading, records } = useAppSelector(s => s.products)
+    const wishListItemsId = useAppSelector(state => state.wishlist.itemsId)
     const params = useParams()
     const dispatch = useAppDispatch()
+
 
     const productFullInfo = records.map(record => (
         {
             ...record,
-            quantity: cardItems[record.id] || 0
+            quantity: cardItems[record.id] || 0,
+            isLiked: wishListItemsId.includes(record.id)
         }
     ))
 

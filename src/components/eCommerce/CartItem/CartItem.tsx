@@ -19,7 +19,6 @@ const CartItem = memo(({ id, img, price, title, max, quantity, changeQuantityHan
         const quantity = ++idx
         return <option key={quantity} value={quantity}>{quantity}</option>
     })
-    console.log('rederd');
 
 
     const changeQuantity = (event: React.ChangeEvent<HTMLSelectElement>) => {

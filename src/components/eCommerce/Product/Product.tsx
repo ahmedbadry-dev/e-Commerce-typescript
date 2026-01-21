@@ -3,16 +3,18 @@ import type { TProduct } from '@customTypes/product.type'
 import { Button, Spinner } from "react-bootstrap";
 import { useAppDispatch } from '@store/hooks';
 import { addToCart } from '@store/cart/cartSlice';
+import { thunkLikeToggle } from '@store/wishlist/wishlistSlice';
 import Like from '@assets/svg/like.svg?react'
-// import LikeFill from '@assets/svg/like.svg?react'
+import LikeFill from '@assets/svg/like-fill.svg?react'
 import styles from "./styles.module.css";
 
 
 const { product, productImg, wishlistBtn } = styles;
 
-const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
+const Product = memo(({ id, title, price, img, max, quantity, isLiked }: TProduct) => {
     const dispatch = useAppDispatch()
     const [isBtnClicked, setIsBtnClicked] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
 
     const availableQuantity = max - (quantity ?? 0)
     const quantityReachedToMax = availableQuantity <= 0 ? true : false
@@ -32,10 +34,36 @@ const Product = memo(({ id, title, price, img, max, quantity }: TProduct) => {
         dispatch(addToCart(id))
         setIsBtnClicked(true)
     }
+
+    // => first way 
+    // const likeToggleHandler = () => {
+    //     setIsLoading(true)
+    //     dispatch(thunkLikeToggle(id))
+    //         .unwrap()
+    //         .then(() => setIsLoading(false))
+    //         .catch(() => setIsLoading(false))
+    // }
+    // =>  scend way
+    const likeToggleHandler = async () => {
+        if (isLoading) return
+
+        setIsLoading(true)
+        try {
+            await dispatch(thunkLikeToggle(id)).unwrap()
+        } finally {
+            setIsLoading(false)
+        }
+    }
+    console.log('render');
+
+
     return (
         <div className={product}>
-            <div className={wishlistBtn}>
-                <Like />
+            <div className={wishlistBtn} onClick={likeToggleHandler}>
+                {
+                    isLoading ? <Spinner animation="border" size='sm' color="primary" />
+                        : isLiked ? <LikeFill /> : <Like />
+                }
             </div>
             <div className={productImg}>
                 <img

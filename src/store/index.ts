@@ -13,17 +13,24 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import categoriesReducer from './categories/categoriesSlice'
 import productsReducer from './products/productsSlice'
 import cartReducer from './cart/cartSlice'
+import wishlistReducer from './wishlist/wishlistSlice'
 
 const cartPersistConfig = {
   key: 'cartItems',
   storage,
   whitelist: ['items'],
 }
+const wishlistConfig = {
+  key: 'wishlist',
+  storage,
+  whitelist: ['itemsId'],
+}
 
 const rootReducer = combineReducers({
   categories: categoriesReducer,
   products: productsReducer,
   cart: persistReducer(cartPersistConfig, cartReducer),
+  wishlist: persistReducer(wishlistConfig, wishlistReducer),
 })
 
 const store = configureStore({

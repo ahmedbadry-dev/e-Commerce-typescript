@@ -26,11 +26,14 @@
       "@pages/*": ["src/pages/*"],
       "@routes/*": ["src/routes/*"],
       "@store/*": ["src/store/*"],
-      "@customTypes/*": ["src/types/*"],
+      "@store": ["src/store/index"],
+      "@types": ["src/types/index"],
+      "@types/*": ["src/types/*"],
       "@styles/*": ["src/styles/*"],
       "@layouts/*": ["src/layouts/*"],
       "@services/*": ["src/services/*"],
-      "@util/*": ["src/util/*"]
+      "@utils/*": ["src/utils/*"],
+      "@utils": ["src/utils/index"]
     },
 
     /* Linting */

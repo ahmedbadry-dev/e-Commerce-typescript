@@ -1,20 +1,20 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 
 
 // pages
-import Home from '@pages/Home';
-import Categories from '@pages/Categories';
-import Products from '@pages/Products';
-import AboutUs from '@pages/AboutUs';
-import Login from '@pages/Login';
-import Register from '@pages/Register';
+const Home = lazy(() => import("@pages/Home"));
+const Wishlist = lazy(() => import("@pages/Wishlist"));
+const Categories = lazy(() => import("@pages/Categories"));
+const Cart = lazy(() => import("@pages/Cart"));
+const Products = lazy(() => import("@pages/Products"));
+const AboutUs = lazy(() => import("@pages/AboutUs"));
+const Login = lazy(() => import("@pages/Login"));
+const Register = lazy(() => import("@pages/Register"));
 import Error from '@pages/Error/Error';
-import Cart from '@pages/Cart';
-import Wishlist from '@pages/Wishlist';
 
 // layouts
-import { MainLayout } from '@layouts/index'
-
+const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
 
 
 const router = createBrowserRouter(
@@ -52,7 +52,9 @@ const router = createBrowserRouter(
 
 const AppRouter = () => {
     return (
-        <RouterProvider router={router} />
+        <Suspense fallback={<p className="text-center mt-5">Loading layout...</p>}>
+            <RouterProvider router={router} />
+        </Suspense>
     )
 }
 

@@ -14,8 +14,9 @@ const useCart = () => {
   )
 
   useEffect(() => {
-    dispatch(getProductsByItems())
+    const promise = dispatch(getProductsByItems())
     return () => {
+      promise.abort()
       dispatch(cartItemsFullInfoCleanUp())
     }
   }, [])

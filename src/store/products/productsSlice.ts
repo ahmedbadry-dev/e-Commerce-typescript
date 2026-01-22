@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { IProductsState } from '@customTypes/product.type'
 import { getProductsByPrefix } from './thunk/thunkGatProductsByPrefix'
+import { isString, type IProductsState } from '@types'
 
 const initialState: IProductsState = {
   records: [],
@@ -28,7 +28,7 @@ const productsSlice = createSlice({
       })
       .addCase(getProductsByPrefix.rejected, (state, action) => {
         state.loading = 'failed'
-        if (action.payload && typeof action.payload === 'string') {
+        if (isString(action.payload)) {
           state.error = action.payload
         }
       })

@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import type { ICategoriesState } from '@customTypes/categories.type'
+import { isString, type ICategoriesState } from '@types'
 import { getCategories } from './thunk/thunkGatCategories'
 
 const initialState: ICategoriesState = {
@@ -24,7 +24,7 @@ const categoriesSlice = createSlice({
       })
       .addCase(getCategories.rejected, (state, action) => {
         state.loading = 'failed'
-        if (action.payload && typeof action.payload === 'string') {
+        if (isString(action.payload)) {
           state.error = action.payload
         }
       })

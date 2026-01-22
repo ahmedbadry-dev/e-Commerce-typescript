@@ -18,8 +18,9 @@ const useProducts = () => {
   }))
 
   useEffect(() => {
-    dispatch(getProductsByPrefix(params.prefix as string))
+    const promise = dispatch(getProductsByPrefix(params.prefix as string))
     return () => {
+      promise.abort()
       dispatch(productCleanUp())
     }
   }, [dispatch, params])

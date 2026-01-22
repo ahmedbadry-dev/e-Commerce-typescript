@@ -1,4 +1,4 @@
-import type { TProduct } from "@customTypes/product.type"
+import type { TProduct } from "@types"
 import { CartItem } from "@components/eCommerce"
 type TCartITemsList = {
     products: TProduct[],

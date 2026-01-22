@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import thunkLikeToggle from './thunk/thunkLickToggle'
 import thunkGetWishlistByProductId from './thunk/thunkGetWishlistByProductId'
-import type { TLoading } from '@customTypes/shared.type'
-import type { TProduct } from '@customTypes/product.type'
+import { isString, type TLoading, type TProduct } from '@types'
 
 interface IWishlistState {
   itemsId: number[]
@@ -64,7 +63,7 @@ const wishlistSlice = createSlice({
       })
       .addCase(thunkGetWishlistByProductId.rejected, (state, action) => {
         state.loading = 'failed'
-        if (action.payload && typeof action.payload === 'string') {
+        if (isString(action.payload)) {
           state.error = action.payload
         }
       })

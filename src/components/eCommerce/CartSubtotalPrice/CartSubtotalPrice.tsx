@@ -1,4 +1,4 @@
-import type { TProduct } from '@customTypes/product.type'
+import type { TProduct } from '@types'
 import styles from './styles.module.css'
 
 

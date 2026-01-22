@@ -11,8 +11,9 @@ const useWishlist = () => {
   )
   const carItem = useAppSelector((state) => state.cart.items)
   useEffect(() => {
-    dispatch(thunkGetWishlistByProductId())
+    const promise = dispatch(thunkGetWishlistByProductId())
     return () => {
+      promise.abort()
       dispatch(wishlistItemsFullInfoCleanUp())
     }
   }, [dispatch])

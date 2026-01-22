@@ -1,5 +1,5 @@
 import { memo, useEffect, useState } from 'react';
-import type { TProduct } from '@customTypes/product.type'
+import type { TProduct } from '@types'
 import { Button, Spinner } from "react-bootstrap";
 import { useAppDispatch } from '@store/hooks';
 import { addToCart } from '@store/cart/cartSlice';

@@ -1,14 +1,15 @@
 import axios from 'axios'
+import { axiosErrorHandler } from '@utils'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import type { RootState } from '../../index'
-import type { TProduct } from '@customTypes/product.type'
+import type { RootState } from '@store'
+import type { TProduct } from '@types'
 
 type TResponse = TProduct[]
 
 const getProductsByItems = createAsyncThunk(
   'cart/getProductsByItems',
   async (_, thunkAPI) => {
-    const { rejectWithValue, fulfillWithValue, getState } = thunkAPI
+    const { rejectWithValue, fulfillWithValue, getState, signal } = thunkAPI
     const { cart } = getState() as RootState
     const itemsId = Object.keys(cart.items)
 
@@ -20,15 +21,12 @@ const getProductsByItems = createAsyncThunk(
         .map((itemId) => `id=${Number(itemId)}`)
         .join('&')
       const response = await axios.get<TResponse>(
-        `/products?${concatenatedItemsId}`
+        `/products?${concatenatedItemsId}`,
+        { signal }
       )
       return response.data
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        return rejectWithValue(error.request?.data.message)
-      } else {
-        return rejectWithValue('An unexpected error')
-      }
+      return rejectWithValue(axiosErrorHandler(error))
     }
   }
 )

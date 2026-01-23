@@ -14,7 +14,7 @@ const Cart = () => {
     return (
         <>
             <Heading title="Cart" />
-            <Loading status={loading} error={error}>
+            <Loading status={loading} error={error} type='cart'>
                 <CartItemsList products={products} changeQuantityHandler={changeQuantityHandler} removeItemHandler={removeItemHandler} />
             </Loading>
             <CartSubtotalPrice products={products} />

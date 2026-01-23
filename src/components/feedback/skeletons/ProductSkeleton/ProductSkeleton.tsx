@@ -6,7 +6,7 @@ const ProductSkeleton = () => {
     const renderList = Array(8)
         .fill(0)
         .map((_, idx) => (
-            <Col xs={3} key={idx} className="d-flex justify-content-center mb-5 mt-2">
+            <Col key={idx} xs={6} md={3} className="d-flex justify-content-center mb-5 mt-2">
                 <ContentLoader
                     speed={2}
                     width={190}

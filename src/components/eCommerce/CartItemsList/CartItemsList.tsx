@@ -8,7 +8,7 @@ type TCartITemsList = {
 
 const CartItemsList = ({ products, changeQuantityHandler, removeItemHandler }: TCartITemsList) => {
 
-    const items = products.length > 0 && products.map(product => (
+    const items = products.map(product => (
         <CartItem
             key={product.id}
             {...product}

@@ -12,6 +12,7 @@ const Wishlist = () => {
                 <GridList
                     records={records}
                     renderRecord={(record) => <Product {...record} />}
+                    emptyMessage="Your Wishlist is empty, add one !!"
                 />
             </Loading>
         </>

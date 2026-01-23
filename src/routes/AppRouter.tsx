@@ -12,6 +12,7 @@ const AboutUs = lazy(() => import("@pages/AboutUs"));
 const Login = lazy(() => import("@pages/Login"));
 const Register = lazy(() => import("@pages/Register"));
 import Error from '@pages/Error/Error';
+import { LottieHandler } from '@components/feedback';
 
 // layouts
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
@@ -52,7 +53,11 @@ const router = createBrowserRouter(
 
 const AppRouter = () => {
     return (
-        <Suspense fallback={<p className="text-center mt-5">Loading layout...</p>}>
+        <Suspense fallback={
+            <div className='d-flex justify-content-center align-items-center' style={{ height: '100vh' }}>
+                <LottieHandler type="layoutLoading" />
+            </div>
+        }>
             <RouterProvider router={router} />
         </Suspense>
     )

@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { Container } from "react-bootstrap"
 import { Header, Footer } from "@components/common";
 import { Suspense } from "react";
+import { LottieHandler } from "@components/feedback";
 
 import styles from './styles.module.css'
 
@@ -14,7 +15,11 @@ const MainLayout = () => {
         <Container className={container}>
             <Header />
             <div className={wrapper}>
-                <Suspense fallback={<p className="text-center mt-4">Loading...</p>}>
+                <Suspense fallback={
+                    <div>
+                        <LottieHandler type="loading" message="loading please wait..." />
+                    </div>
+                }>
                     <Outlet />
                 </Suspense>
             </div>

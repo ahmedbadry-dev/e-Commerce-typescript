@@ -28,7 +28,6 @@ const useCart = () => {
 
   const changeQuantityHandler = useCallback(
     (id: number, quantity: number) => {
-      console.log(id, quantity)
       dispatch(cartItemChangeQuantity({ id, quantity }))
     },
     [dispatch]
@@ -36,7 +35,6 @@ const useCart = () => {
 
   const removeItemHandler = useCallback(
     (id: number) => {
-      console.log(id)
       dispatch(removeCartItem({ id }))
     },
     [dispatch]

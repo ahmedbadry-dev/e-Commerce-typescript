@@ -11,8 +11,13 @@ const Products = lazy(() => import("@pages/Products"));
 const AboutUs = lazy(() => import("@pages/AboutUs"));
 const Login = lazy(() => import("@pages/Login"));
 const Register = lazy(() => import("@pages/Register"));
+const Profile = lazy(() => import('@pages/Profile'))
 import Error from '@pages/Error/Error';
 import { LottieHandler } from '@components/feedback';
+
+
+// protect route
+import ProtectedRoute from '@components/Auth/ProtectedRoute';
 
 // layouts
 const MainLayout = lazy(() => import("@layouts/MainLayout/MainLayout"));
@@ -41,9 +46,10 @@ const router = createBrowserRouter(
             />
             <Route path='about-us' element={<AboutUs />} />
             <Route path='cart' element={<Cart />} />
-            <Route path='wishlist' element={<Wishlist />} />
+            <Route path='wishlist' element={<ProtectedRoute><Wishlist /></ProtectedRoute>} />
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
+            <Route path='Profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         </Route>
     ),
     {

@@ -16,27 +16,36 @@ import cartReducer from './cart/cartSlice'
 import wishlistReducer from './wishlist/wishlistSlice'
 import authReducer from './auth/authSlice'
 
+const rootPersistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['cart', 'auth'],
+}
+
 const cartPersistConfig = {
   key: 'cartItems',
   storage,
   whitelist: ['items'],
 }
-const wishlistConfig = {
-  key: 'wishlist',
+
+const authConfig = {
+  key: 'auth',
   storage,
-  whitelist: ['itemsId'],
+  whitelist: ['accessToken', 'user'],
 }
 
 const rootReducer = combineReducers({
-  auth: authReducer,
   categories: categoriesReducer,
   products: productsReducer,
   cart: persistReducer(cartPersistConfig, cartReducer),
-  wishlist: persistReducer(wishlistConfig, wishlistReducer),
+  wishlist: wishlistReducer,
+  auth: persistReducer(authConfig, authReducer),
 })
 
+const persistedReducer = persistReducer(rootPersistConfig, rootReducer)
+
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {

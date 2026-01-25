@@ -24,7 +24,6 @@ const thunkAuthLogin = createAsyncThunk(
 
     try {
       const response = await axios.post<TResponse>('/login', FormData)
-      console.log(response)
       return response.data
     } catch (error) {
       return rejectWithValue(axiosErrorHandler(error))

@@ -1,6 +1,6 @@
 import { useForm, type SubmitHandler } from "react-hook-form"
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { resetUI, thunkAuthRegister } from "@store/auth/authSlice";
 import { Input } from "@components/forms";
 import { type TRegisterType, signUpSchema } from "@validations/signUpSchema"
@@ -34,7 +34,7 @@ const Register = () => {
     } = useCheckEmailAvailability()
 
     const dispatch = useAppDispatch()
-    const { loading, error } = useAppSelector(s => s.auth)
+    const { loading, error, accessToken } = useAppSelector(s => s.auth)
 
     const navigate = useNavigate()
 
@@ -71,6 +71,10 @@ const Register = () => {
             dispatch(resetUI())
         }
     }, [dispatch])
+
+    if (accessToken) {
+        return <Navigate to={'/'} />
+    }
     return (
         <>
             <Heading title='User Registration' />

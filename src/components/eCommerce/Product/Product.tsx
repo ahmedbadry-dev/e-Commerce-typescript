@@ -54,7 +54,6 @@ const Product = memo(({ id, title, price, img, max, quantity, isLiked }: TProduc
             setIsLoading(false)
         }
     }
-    console.log('render');
 
 
     return (

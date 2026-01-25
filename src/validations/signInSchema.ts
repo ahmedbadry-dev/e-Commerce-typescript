@@ -4,7 +4,7 @@ const loginSchema = z.object({
   email: z.email().min(1, { message: 'password is required' }),
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 character' }),
+    .min(1, { message: 'Password must be at least 8 character' }),
 })
 
 type TSignInType = z.infer<typeof loginSchema>
